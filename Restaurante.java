@@ -1,40 +1,104 @@
-import javax.swing.JOptionPane;
 import java.util.ArrayList;
-import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Restaurante {
-    public static void main(String[] args) {
-        JOptionPane.showMessageDialog(null, "¡Bienvenido al Restaurante ____!","Nombre del restaurante",JOptionPane.INFORMATION_MESSAGE);
-        boolean salida=false;
-        while(!salida) {
-            String[] opciones = {"Mostrar Menú", "Agregar Platillo", "Ver órdenes completadas", "Ver órdenes completadas por fecha", "Salir"};
-            int opcion = JOptionPane.showOptionDialog(null, "Por favor, seleccione una opción:", "Menú del Restaurante",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
+    private ArrayList<Platillo> menu;
+    private ArrayList<Orden> ordenes;
+    public Restaurante() {
+        menu = new ArrayList<>();
+        ordenes = new ArrayList<>();
+        cargarMenu();
+    }
+    public void cargarMenu() {
+        menu.add(
+                new Entrada(
+                        "Carpaccio",
+                        "Láminas finísimas de carne de ternera o pescado crudo," +
+                                " servidas con queso parmesano y aceite de oliva.",
+                        250,
+                        5
+                )
+        );
+        menu.add(
+                new Entrada(
+                        "Provolone al forno"
+                        ,"Queso provolone fundido en horno de piedra, a menudo acompañado de especias y tomates.",
+                        280,
+                        4
+                )
+        );
+        menu.add(
+                new PlatoFuerte(
+                        "Lasagna bolognesa",
+                        ". Consiste en capas alternas de láminas de pasta, salsa boloñesa (ragú de carne)," +
+                                " cremosa salsa bechamel y queso gratinado," +
+                                " todo ello horneado hasta alcanzar una textura crujiente por fuera y jugosa por dentro.",
+                        350,
+                        7,
+                        "Res"
+                )
+        );
+        menu.add(
+                new PlatoFuerte(
+                        "Risotto ai Frutti di Mare",
+                        "Arroz cremoso italiano cocinado en un caldo de mariscos y servido con una generosa selección de pescado" +
+                                ", mejillones y camarones." ,
+                        330,
+                        8,
+                        "Mariscos"
+                )
+        );
+        menu.add(
+                new PlatoFuerte(
+                        "Pollo a la parmesana",
+                        "Pechuga empanizada, frita y cubierta con salsa marinara," +
+                                " queso mozzarella derretido y parmesano.",
+                        380,
+                        6 ,
+                        "Pollo"
 
-            switch (opcion) {
-                case 0:
-                    //Mostrar Menú
-                    break;
-                case 1:
-                    //Agregar nueva orden
-                    break;
-                case 2:
-                    //Ver órdenes completadas
-                    break;
-                case 3:
-                    //Ver órdenes completadas por fecha
-                    break;
-                case 4:
-                    //Salir del programa
-                    JOptionPane.showMessageDialog(null, "Gracias por visitar el Restaurante ____. ¡Hasta luego!");
-                    salida=true;
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Opción no válida. Por favor, seleccione una opción del menú.");
-            }
+                )
+        );
+        menu.add(
+                new Postre(
+                        "Tiramisu",
+                        " Capas de bizcochos humedecidos en café espresso" +
+                                ", intercalados con una suave crema de queso mascarpone y espolvoreados con cacao amargo",
+                        200,
+                        3,
+                        false
+                )
+        );
+        menu.add(
+                new Postre(
+                        "Gelato",
+                        "Helado de sabroes de frutas de temporada a base de agua",
+                        120,
+                        2 ,
+                        true
+                )
+        );
+    }
+    public ArrayList<Platillo> getMenu() {
+        return menu;
+    }
+    public ArrayList<Orden> getOrdenes() {
+        return ordenes;
+    }
+    public void agregarOrden(Orden o) {
+        ordenes.add(o);
+    }
+    public void mostrarMenu() {
+        System.out.println("========== MENU ==========");
+        for (int i = 0; i < menu.size(); i++) {
+            System.out.println(
+                    (i + 1) + ". " +
+                            menu.get(i)
+            );
         }
     }
-    
+    public void guardarTicket(Orden orden) {
+        String ticket =
+                "Orden completada #" +
+                        orden.getId();
+        ManejadorArchivos.guardarTicket(ticket);
+    }
 }
