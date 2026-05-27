@@ -1,12 +1,15 @@
 import java.util.ArrayList;
+
 public class Restaurante {
     private ArrayList<Platillo> menu;
     private ArrayList<Orden> ordenes;
+
     public Restaurante() {
         menu = new ArrayList<>();
         ordenes = new ArrayList<>();
         cargarMenu();
     }
+
     public void cargarMenu() {
         menu.add(
                 new Entrada(
@@ -101,4 +104,5 @@ public class Restaurante {
                         orden.getId();
         ManejadorArchivos.guardarTicket(ticket);
     }
+
 }

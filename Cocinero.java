@@ -2,6 +2,7 @@ public class Cocinero extends Thread {
     private String nombre;
     private String especialidad;
     private Restaurante restaurante;
+
     public Cocinero(String nombre, String especialidad, Restaurante restaurante) {
         this.nombre = nombre;
         this.especialidad = especialidad;
@@ -11,6 +12,7 @@ public class Cocinero extends Thread {
         return p.getTipo()
                 .equalsIgnoreCase(especialidad);
     }
+    
     @Override
     public void run() {
         while (true) {
