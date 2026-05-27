@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 public class Restaurante {
     private ArrayList<Platillo> menu;
     private ArrayList<Orden> ordenes;
@@ -120,4 +121,5 @@ public class Restaurante {
 
         ManejadorArchivos.guardarTicket(ticket);
     }
+
 }

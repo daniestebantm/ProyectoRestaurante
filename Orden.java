@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 public class Orden {
     private static int contador = 1;
     private int id;
@@ -16,7 +17,6 @@ public class Orden {
         return platillos;
     }
     public int getId() {
-
         return id;
     }
     public boolean isGuardada() {
@@ -37,7 +37,7 @@ public class Orden {
     }
     @Override
     public String toString() {
-        String texto = "===== ORDEN #" + id + " =====";
+        String texto = "===== ORDEN #" + id + " =====\n";
         for (Platillo p : platillos) {
             texto += p;
         }
