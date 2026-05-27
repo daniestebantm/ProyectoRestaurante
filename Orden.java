@@ -4,10 +4,11 @@ public class Orden {
     private static int contador = 1;
     private int id;
     private ArrayList<Platillo> platillos;
-
+    private boolean guardada;
     public Orden() {
         id = contador++;
         platillos = new ArrayList<>();
+        guardada = false;
     }
     public void agregarPlatillo(Platillo p) {
         platillos.add(p);
@@ -18,12 +19,17 @@ public class Orden {
     public int getId() {
         return id;
     }
-    public void setContador(int paso) {
-        contador += paso;
+    public boolean isGuardada() {
+        return guardada;
+    }
+    public void setGuardada(boolean guardada) {
+
+        this.guardada = guardada;
     }
     public boolean estaCompleta() {
         for (Platillo p : platillos) {
             if (!p.isPreparado()) {
+
                 return false;
             }
         }
@@ -33,7 +39,7 @@ public class Orden {
     public String toString() {
         String texto = "===== ORDEN #" + id + " =====\n";
         for (Platillo p : platillos) {
-            texto += p ;
+            texto += p;
         }
         return texto;
     }
