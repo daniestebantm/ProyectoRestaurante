@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 public class Restaurante {
     private ArrayList<Platillo> menu;
@@ -12,8 +14,8 @@ public class Restaurante {
     public void cargarMenu() {
         menu.add(
                 new Entrada(
-                        "Carpaccio ",
-                        " Láminas finísimas de carne de ternera o pescado crudo," +
+                        "\nCarpaccio ",
+                        "Láminas finísimas de carne de ternera o pescado crudo," +
                                 " servidas con queso parmesano y aceite de oliva.",
                         250,
                         5
@@ -21,8 +23,8 @@ public class Restaurante {
         );
         menu.add(
                 new Entrada(
-                        "Provolone al forno "
-                        , " Queso provolone fundido en horno de piedra, a menudo acompañado de especias y tomates.",
+                        "\nProvolone al forno "
+                        , "Queso provolone fundido en horno de piedra, a menudo acompañado de especias y tomates.",
                         280,
                         4
                 )
@@ -30,44 +32,44 @@ public class Restaurante {
 
         menu.add(
                 new PlatoFuerte(
-                        "Lasagna bolognesa ",
-                        " Consiste en capas alternas de láminas de pasta, salsa boloñesa (ragú de carne)," +
+                        "\nLasagna bolognesa ",
+                        "Consiste en capas alternas de láminas de pasta, salsa boloñesa (ragú de carne)," +
                                 " cremosa salsa bechamel y queso gratinado," +
                                 " todo ello horneado hasta alcanzar una textura crujiente por fuera y jugosa por dentro.",
                         350,
                         7,
-                        "Res"
+                        " Res"
                 )
 
         );
 
         menu.add(
                 new PlatoFuerte(
-                        "Risotto ai Frutti di Mare ",
-                        " Arroz cremoso italiano cocinado en un caldo de mariscos y servido con una generosa selección de pescado" +
+                        "\nRisotto ai Frutti di Mare ",
+                        "Arroz cremoso italiano cocinado en un caldo de mariscos y servido con una generosa selección de pescado" +
                                 ", mejillones y camarones.",
                         330,
                         8,
-                        "Mariscos"
+                        " \nMariscos"
                 )
 
         );
 
         menu.add(
                 new PlatoFuerte(
-                        "Pollo a la parmesana ",
-                        " Pechuga empanizada, frita y cubierta con salsa marinara," +
+                        "\nPollo a la parmesana ",
+                        "Pechuga empanizada, frita y cubierta con salsa marinara," +
                                 " queso mozzarella derretido y parmesano.",
                         380,
                         6,
-                        "Pollo"
+                        " Pollo"
                 )
         );
 
         menu.add(
                 new Postre(
-                        "Tiramisu ",
-                        " Capas de bizcochos humedecidos en café espresso" +
+                        "\nTiramisu ",
+                        "Capas de bizcochos humedecidos en café espresso" +
                                 ", intercalados con una suave crema de queso mascarpone y espolvoreados con cacao amargo",
                         200,
                         3,
@@ -77,7 +79,7 @@ public class Restaurante {
 
         menu.add(
                 new Postre(
-                        "Gelato ",
+                        "\nGelato ",
                         "Helado de sabroes de frutas de temporada a base de agua",
                         120,
                         2,
@@ -112,12 +114,22 @@ public class Restaurante {
 
     public void guardarTicket(Orden orden) {
 
+        DateTimeFormatter formato =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"
+                );
+
+        String fecha =
+                LocalDateTime.now().format(formato);
+
         String ticket =
                 "\n=========== TICKET ===========\n" +
-                        "Orden #" + orden.getId() + "\n\n" +
-                        orden +
+                        "Fecha: " + fecha + "\nOrden #" + orden.getId() + "\n\n" + orden +
                         "\n==============================\n";
 
         ManejadorArchivos.guardarTicket(ticket);
+
+        System.out.println(
+                " Orden #" + orden.getId() + " completada."
+        );
     }
 }
