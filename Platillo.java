@@ -37,6 +37,10 @@ public abstract class Platillo {
         this.estaPreparado = estaPreparado;
     }
 
+    public void setEnPreparacion(boolean enPreparacion) {
+        this.enPreparacion = enPreparacion;
+    }
+
     public String getTipo() {
         return "Platillo";
     }
