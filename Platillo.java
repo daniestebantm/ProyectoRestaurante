@@ -1,18 +1,19 @@
-public abstract class Platillo {
+public class Platillo {
+
     private String nombre;
-    private double precio; 
-    private int tiempoPreparacion;
-    private boolean estaPreparado;
     private String descripcion;
+    private double precio;
+    private int tiempoPreparacion;
+    private boolean preparado;
 
     public Platillo(String nombre, String descripcion, double precio, int tiempoPreparacion){
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.tiempoPreparacion = tiempoPreparacion;
-        this.estaPreparado = false;
+        this.preparado = false;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -29,20 +30,26 @@ public abstract class Platillo {
         return tiempoPreparacion;
     }
 
-    public boolean isEstaPreparado() {
-        return estaPreparado;
+    public boolean isPreparado() {
+        return preparado;
     }
 
-    public void setEstaPreparado(boolean estaPreparado) {
-        this.estaPreparado = estaPreparado;
-    }
-
-    public void setEnPreparacion(boolean enPreparacion) {
-        this.enPreparacion = enPreparacion;
+    public void setPreparado(boolean preparado) {
+        this.preparado = preparado;
     }
 
     public String getTipo() {
         return "Platillo";
+    }
+
+    public Platillo copiar() {
+
+        return new Platillo(
+                nombre,
+                descripcion,
+                precio,
+                tiempoPreparacion
+        );
     }
 
     @Override
@@ -53,6 +60,4 @@ public abstract class Platillo {
                 "\nPrecio: $" + precio +
                 "\nTipo: " + getTipo();
     }
-
-    public abstract String getMensajeCoccion();
 }

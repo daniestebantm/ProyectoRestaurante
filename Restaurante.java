@@ -39,7 +39,7 @@ public class Restaurante {
                                 " todo ello horneado hasta alcanzar una textura crujiente por fuera y jugosa por dentro.",
                         350,
                         7,
-                        " Res"
+                        "\nRes"
                 )
 
         );
@@ -63,7 +63,7 @@ public class Restaurante {
                                 " queso mozzarella derretido y parmesano.",
                         380,
                         6,
-                        " Pollo"
+                        "\nPollo"
                 )
         );
 
@@ -74,6 +74,7 @@ public class Restaurante {
                                 ", intercalados con una suave crema de queso mascarpone y espolvoreados con cacao amargo",
                         200,
                         3,
+
                         false
                 )
         );
