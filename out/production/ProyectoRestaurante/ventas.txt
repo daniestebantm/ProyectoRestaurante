@@ -1,0 +1,16 @@
+
+=========== TICKET ===========
+Fecha: 27/05/2026 12:59
+Orden #1
+
+===== ORDEN #1 =====
+
+Carpaccio 
+Descripcion: Láminas finísimas de carne de ternera o pescado crudo, servidas con queso parmesano y aceite de oliva.
+Precio: $250.0
+Tipo: Entrada
+Lasagna bolognesa 
+Descripcion: Consiste en capas alternas de láminas de pasta, salsa boloñesa (ragú de carne), cremosa salsa bechamel y queso gratinado, todo ello horneado hasta alcanzar una textura crujiente por fuera y jugosa por dentro.
+Precio: $350.0
+Tipo: Plato fuerteProteína:  Res
+==============================
