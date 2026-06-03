@@ -1,11 +1,14 @@
-public class Cocinero extends Thread {
+import java.util.ArrayList;
 
-    private String nombre;
+public class Cocinero extends Empleado implements Runnable {
+
     private String especialidad;
+    private Platillo platilloActual;
+    private ArrayList<Orden> ColaOrdenesCompartida;
     private Restaurante restaurante;
 
     public Cocinero(String nombre, String especialidad, Restaurante restaurante) {
-        this.nombre = nombre;
+        super(nombre, 0);
         this.especialidad = especialidad;
         this.restaurante = restaurante;
     }

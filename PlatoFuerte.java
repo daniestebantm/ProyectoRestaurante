@@ -10,6 +10,7 @@ public class PlatoFuerte extends Platillo {
     public String getTipoProteina() {
         return tipoProteina;
     }
+    
     @Override
     public String getTipo() {
         return "PlatoFuerte";
@@ -18,5 +19,10 @@ public class PlatoFuerte extends Platillo {
     public String toString() {
         return super.toString() +
                 "\nProteína: " + tipoProteina+"\n";
+    }
+    
+    @Override
+    public String getMensajeCoccion() {
+        return "El plato fuerte se está cocinando a fuego medio.";
     }
 }

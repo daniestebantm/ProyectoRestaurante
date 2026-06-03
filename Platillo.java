@@ -1,19 +1,18 @@
-public class Platillo {
+public abstract class Platillo {
     private String nombre;
-    private String descripcion;
-    private double precio;
+    private double precio; 
     private int tiempoPreparacion;
-    private boolean preparado;
-    private boolean enPreparacion;
+    private boolean estaPreparado;
+    private String descripcion;
 
     public Platillo(String nombre, String descripcion, double precio, int tiempoPreparacion){
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.tiempoPreparacion = tiempoPreparacion;
-        this.preparado = false;
-        this.enPreparacion = false;
+        this.estaPreparado = false;
     }
+    
     public String getNombre() {
         return nombre;
     }
@@ -30,16 +29,12 @@ public class Platillo {
         return tiempoPreparacion;
     }
 
-    public boolean isPreparado() {
-        return preparado;
+    public boolean isEstaPreparado() {
+        return estaPreparado;
     }
 
-    public boolean isEnPreparacion() {
-        return enPreparacion;
-    }
-
-    public void setPreparado(boolean preparado) {
-        this.preparado = preparado;
+    public void setEstaPreparado(boolean estaPreparado) {
+        this.estaPreparado = estaPreparado;
     }
 
     public void setEnPreparacion(boolean enPreparacion) {
@@ -58,4 +53,6 @@ public class Platillo {
                 "\nPrecio: $" + precio +
                 "\nTipo: " + getTipo();
     }
+
+    public abstract String getMensajeCoccion();
 }
