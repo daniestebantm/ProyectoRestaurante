@@ -12,11 +12,11 @@ public class PlatoFuerte extends Platillo {
     }
     @Override
     public String getTipo() {
-        return "Plato fuerte";
+        return "PlatoFuerte";
     }
     @Override
     public String toString() {
         return super.toString() +
-                "Proteína: " + tipoProteina;
+                "\nProteína: " + tipoProteina+"\n";
     }
 }

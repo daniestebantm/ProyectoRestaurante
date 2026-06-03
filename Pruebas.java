@@ -43,7 +43,7 @@ public class Pruebas {
                     break;
                 case 1:
                 //PLATO FUERTE
-                    String[] opcionesFuertes = new String[]{"Lasagna bolognesa","Risotto ai Frutti di Mare"};
+                    String[] opcionesFuertes = new String[]{"Lasagna bolognesa","Risotto ai Frutti di Mare","Pollo a la parmesana"};
                     int opFuerte = JOptionPane.showOptionDialog(
                             null,
                             "Seleccione el plato fuerte:",
@@ -56,11 +56,12 @@ public class Pruebas {
                     switch(opFuerte) {
                         case 0:
                             orden.agregarPlatillo(restaurante.getMenu().get(2));
-                            restaurante.agregarOrden(orden);
                             break;
                         case 1:
                             orden.agregarPlatillo(restaurante.getMenu().get(3));
-                            restaurante.agregarOrden(orden);
+                            break;
+                        case 2:
+                            orden.agregarPlatillo(restaurante.getMenu().get(4));
                             break;
                         default:
                             break;
@@ -80,10 +81,10 @@ public class Pruebas {
                             opcionesPostres[0]);
                     switch(opPostre) {
                         case 0:
-                            orden.agregarPlatillo(restaurante.getMenu().get(4));
+                            orden.agregarPlatillo(restaurante.getMenu().get(5));
                             break;
                         case 1:
-                            orden.agregarPlatillo(restaurante.getMenu().get(5));
+                            orden.agregarPlatillo(restaurante.getMenu().get(6));
                             break;
                         default:
                             break;
@@ -107,12 +108,14 @@ public class Pruebas {
                         if(confirmacion) {
                             restaurante.agregarOrden(orden);
                             JOptionPane.showMessageDialog(null,"Orden confirmada!");
+                            return;
                         } else {
                             JOptionPane.showMessageDialog(null,"Orden cancelada.");
                         }
                     } catch (OrdenVaciaException e) {
                         JOptionPane.showMessageDialog(null,e.getMessage());
                     }
+                    break;
                 default:
                     //orden.setContador(-1);
                     return;
@@ -141,7 +144,13 @@ public class Pruebas {
 
         JOptionPane.showMessageDialog(null,"Bienvenido al restaurante italiano!");
         boolean salir = false;
+
+        CEntradas1.start();
+        CFuertes1.start();
+        CPostres1.start();
+        
         while(!salir) {
+
             String[] opciones = {"Ver Menú", "Agregar Orden", "Ver órdenes completadas","Ver órdenes por fecha","Salir"};
             int accion = JOptionPane.showOptionDialog(
                     null,
@@ -171,6 +180,14 @@ public class Pruebas {
                     break;
                 case 4:
                     salir=true;
+                    try {
+                        CEntradas1.join();
+                        CFuertes1.join();
+                        CPostres1.join();
+                    } catch (InterruptedException e) {
+                        System.out.println("Error al cerrar los hilos de los cocineros.");
+                    }
+                    System.out.println("Gracias por visitar el restaurante italiano. ¡Hasta luego!");
                     break;
                 default:
                     JOptionPane.showMessageDialog(null,"Opción no válida. Intenta de nuevo.");

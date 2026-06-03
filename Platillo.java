@@ -4,6 +4,7 @@ public class Platillo {
     private double precio;
     private int tiempoPreparacion;
     private boolean preparado;
+    private boolean enPreparacion;
 
     public Platillo(String nombre, String descripcion, double precio, int tiempoPreparacion){
         this.nombre = nombre;
@@ -11,6 +12,7 @@ public class Platillo {
         this.precio = precio;
         this.tiempoPreparacion = tiempoPreparacion;
         this.preparado = false;
+        this.enPreparacion = false;
     }
     public String getNombre() {
         return nombre;
@@ -32,8 +34,16 @@ public class Platillo {
         return preparado;
     }
 
+    public boolean isEnPreparacion() {
+        return enPreparacion;
+    }
+
     public void setPreparado(boolean preparado) {
         this.preparado = preparado;
+    }
+
+    public void setEnPreparacion(boolean enPreparacion) {
+        this.enPreparacion = enPreparacion;
     }
 
     public String getTipo() {

@@ -16,6 +16,6 @@ public class Postre extends Platillo {
     @Override
     public String toString() {
         return super.toString() +
-                "Vegano: " + vegano;
+                "\nVegano: " + vegano+"\n";
     }
 }
