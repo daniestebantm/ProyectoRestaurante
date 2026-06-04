@@ -26,6 +26,14 @@ public class Pruebas {
             switch(opPlato) {
                 case 0:
                 //ENTRADA
+                    try {
+                        if(nPlatillos >= 20) {
+                            throw new LimitePlatillosException("No se pueden agregar más de 20 platillos a una orden.");
+                        }
+                    } catch (LimitePlatillosException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(),"La Cucharetta",JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
                     String[] opcionesEntradas = new String[]{"Carpaccio","Provolone al forno"};
                     int opEntrada = JOptionPane.showOptionDialog(
                             null,
@@ -39,9 +47,11 @@ public class Pruebas {
                     switch(opEntrada) {
                         case 0:
                             platillosOrden.add(restaurante.getMenu().get(0).copiar());
+                            nPlatillos++;
                             break;
                         case 1:
                             platillosOrden.add(restaurante.getMenu().get(1).copiar());
+                            nPlatillos++;
                             break;
                         default:
                             break;
@@ -49,6 +59,14 @@ public class Pruebas {
                     break;
                 case 1:
                 //PLATO FUERTE
+                    try {
+                        if(nPlatillos >= 20) {
+                            throw new LimitePlatillosException("No se pueden agregar más de 20 platillos a una orden.");
+                        }
+                    } catch (LimitePlatillosException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(),"La Cucharetta",JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
                     String[] opcionesFuertes = new String[]{"Lasagna bolognesa","Risotto ai Frutti di Mare","Pollo a la parmesana"};
                     int opFuerte = JOptionPane.showOptionDialog(
                             null,
@@ -62,12 +80,15 @@ public class Pruebas {
                     switch(opFuerte) {
                         case 0:
                             platillosOrden.add(restaurante.getMenu().get(2).copiar());
+                            nPlatillos++;
                             break;
                         case 1:
                             platillosOrden.add(restaurante.getMenu().get(3).copiar());
+                            nPlatillos++;
                             break;
                         case 2:
                             platillosOrden.add(restaurante.getMenu().get(4).copiar());
+                            nPlatillos++;
                             break;
                         default:
                             break;
@@ -75,6 +96,14 @@ public class Pruebas {
                     break;
                 case 2:
                 //POSTRE
+                    try {
+                        if(nPlatillos >= 20) {
+                            throw new LimitePlatillosException("No se pueden agregar más de 20 platillos a una orden.");
+                        }
+                    } catch (LimitePlatillosException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(),"La Cucharetta",JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
                     String[] opcionesPostres = new String[]{"Tiramisú","Gelato"};
                     int opPostre = JOptionPane.showOptionDialog(
                             null,
@@ -88,9 +117,11 @@ public class Pruebas {
                     switch(opPostre) {
                         case 0:
                             platillosOrden.add(restaurante.getMenu().get(5).copiar());
+                            nPlatillos++;
                             break;
                         case 1:
                             platillosOrden.add(restaurante.getMenu().get(6).copiar());
+                            nPlatillos++;
                             break;
                         default:
                             break;
@@ -166,30 +197,27 @@ public class Pruebas {
     //MAIN
     public static void main(String[] args) {
         Restaurante restaurante = new Restaurante();
+        ArrayList<Cocinero> cocineros = new ArrayList<>();
+        ArrayList<Thread> hilosCocineros = new ArrayList<>();
 
-        Cocinero c1 = new Cocinero("Giovanni",1,"Entrada",restaurante);
-        Cocinero c2 = new Cocinero("Luca",2,"PlatoFuerte",restaurante);
-        Cocinero c3 = new Cocinero("Sofia",3,"Postre",restaurante);
-        Cocinero c4 = new Cocinero("Marco",4,"Entrada",restaurante);
-        Cocinero c5 = new Cocinero("Ivan",5,"PlatoFuerte",restaurante);
-        Cocinero c6 = new Cocinero("Amelia",6,"Postre",restaurante);
+        cocineros.add(new Cocinero("Giovanni",1,"Entrada",restaurante));
+        cocineros.add(new Cocinero("Luca",2,"PlatoFuerte",restaurante));
+        cocineros.add(new Cocinero("Sofia",3,"Postre",restaurante));
+        cocineros.add(new Cocinero("Marco",4,"Entrada",restaurante));
+        cocineros.add(new Cocinero("Ivan",5,"PlatoFuerte",restaurante));
+        cocineros.add(new Cocinero("Amelia",6,"Postre",restaurante));
 
         JOptionPane.showMessageDialog(null,"Bienvenido a La Cucharetta!","La Cucharetta",JOptionPane.INFORMATION_MESSAGE);
         boolean salir = false;
 
-        Thread CEntradas1 = new Thread(c1);
-        Thread CFuertes1 = new Thread(c2);
-        Thread CPostres1 = new Thread(c3);
-        Thread CEntradas2 = new Thread(c4);
-        Thread CFuertes2 = new Thread(c5);
-        Thread CPostres2 = new Thread(c6);
+        for(Cocinero c : cocineros) {
+            Thread t = new Thread(c);
+            hilosCocineros.add(t);
+        }
 
-        CEntradas1.start();
-        CFuertes1.start();
-        CPostres1.start();
-        CEntradas2.start();
-        CFuertes2.start();
-        CPostres2.start();
+        for(Thread t : hilosCocineros) {
+            t.start();
+        }
 
         while(!salir) {
 
@@ -232,12 +260,9 @@ public class Pruebas {
                     salir=true;
                     restaurante.solicitarCierre();
                     try {
-                        CEntradas1.join();
-                        CFuertes1.join();
-                        CPostres1.join();
-                        CEntradas2.join();
-                        CFuertes2.join();
-                        CPostres2.join();
+                        for (Thread t : hilosCocineros) {
+                            t.join();
+                        }
                     } catch (InterruptedException e) {
                         System.out.println("Error al cerrar los hilos de los cocineros.");
                     }

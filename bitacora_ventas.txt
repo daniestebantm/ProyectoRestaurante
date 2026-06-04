@@ -650,3 +650,45 @@ Es dulce: Sí
 Vegano: Sí
 
 ==============================
+
+=========== TICKET ===========
+Fecha:
+03/06/2026
+Orden #19
+
+===== ORDEN #19 =====
+
+Carpaccio 
+Descripcion: Láminas finísimas de carne de ternera o pescado crudo, servidas con queso parmesano y aceite de oliva.
+Precio: $250.0
+Tipo: Entrada
+Es para compartir: Sí
+Tipo de entrada: Fría
+
+Provolone al forno 
+Descripcion: Queso provolone fundido en horno de piedra, a menudo acompañado de especias y tomates.
+Precio: $280.0
+Tipo: Entrada
+Es para compartir: No
+Tipo de entrada: Caliente
+
+Lasagna bolognesa 
+Descripcion: Consiste en capas alternas de láminas de pasta, salsa boloñesa (ragú de carne), cremosa salsa bechamel y queso gratinado, todo ello horneado hasta alcanzar una textura crujiente por fuera y jugosa por dentro.
+Precio: $350.0
+Tipo: PlatoFuerte
+Proteína: Res
+
+Risotto ai Frutti di Mare 
+Descripcion: Arroz cremoso italiano cocinado en un caldo de mariscos y servido con una generosa selección de pescado, mejillones y camarones.
+Precio: $330.0
+Tipo: PlatoFuerte
+Proteína: Mariscos
+
+Carpaccio 
+Descripcion: Láminas finísimas de carne de ternera o pescado crudo, servidas con queso parmesano y aceite de oliva.
+Precio: $250.0
+Tipo: Entrada
+Es para compartir: Sí
+Tipo de entrada: Fría
+
+==============================
