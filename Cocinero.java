@@ -1,7 +1,7 @@
 public class Cocinero extends Empleado {
 
     private String especialidad;
-    private Platillo platilloActual;
+    //private Platillo platilloActual;
     private Restaurante restaurante;
 
     public Cocinero(String nombre, int id,String especialidad, Restaurante restaurante) {

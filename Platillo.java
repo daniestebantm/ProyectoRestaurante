@@ -27,6 +27,7 @@ public abstract class Platillo {
     public abstract String getMensajeCoccion();
 
     //GETTERS
+    
     public String getNombre() {
         return nombre;
     }

@@ -1,7 +1,7 @@
 public class Entrada extends Platillo {
 
-    boolean esParaCompartir;
-    String tipoEntrada;
+    private boolean esParaCompartir;
+    private String tipoEntrada;
 
     public Entrada(String nombre, String descripcion, double precio, int tiempoPreparacion, boolean esParaCompartir,
             String tipoEntrada) {

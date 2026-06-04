@@ -3,8 +3,7 @@ public class Postre extends Platillo {
     private boolean esDulce;
     private boolean esVegano;
 
-    public Postre(String nombre, String descripcion, double precio, int tiempoPreparacion,
-                  boolean esDulce,boolean esVegano) {
+    public Postre(String nombre, String descripcion, double precio, int tiempoPreparacion, boolean esDulce,boolean esVegano) {
         super(nombre, descripcion, precio, tiempoPreparacion);
         this.esDulce = esDulce;
         this.esVegano = esVegano;

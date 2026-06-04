@@ -11,12 +11,23 @@ public class Restaurante {
 
     public Restaurante() {
         menu = new ArrayList<>();
-                //Utilizar una lista sincronizada para permitir el acceso concurrente seguro desde hilos
-                ordenes = Collections.synchronizedList(new ArrayList<>());
-                cierreSolicitado = false;
+        //Utilizar una lista sincronizada para permitir el acceso concurrente seguro desde hilos
+        ordenes = Collections.synchronizedList(new ArrayList<>());
+        cierreSolicitado = false;
         cargarMenu();
     }
 
+    //GETTERS
+
+    public ArrayList<Platillo> getMenu() {
+        return menu;
+    }
+
+    public List<Orden> getOrdenes() {
+        return ordenes;
+    }
+
+    //Cargar el menú con platillos predefinidos
     public void cargarMenu() {
         menu.add(
                 new Entrada(
@@ -94,61 +105,42 @@ public class Restaurante {
         );
     }
 
-    public ArrayList<Platillo> getMenu() {
-
-        return menu;
-    }
-
-        public List<Orden> getOrdenes() {
-
-                return ordenes;
-        }
-
     public void agregarOrden(Orden o) {
-
         ordenes.add(o);
     }
 
-        public void solicitarCierre() {
+    public void solicitarCierre() {
+        cierreSolicitado = true;
+    }
 
-                cierreSolicitado = true;
+    //Verificar si se ha solicitado el cierre y si todas las órdenes han sido completadas, para permitir que los cocineros terminen su trabajo antes de cerrar completamente
+    public boolean debeCerrar() {
+        if (!cierreSolicitado) {
+                return false;
         }
 
-        public boolean debeCerrar() {
-
-                if (!cierreSolicitado) {
-                        return false;
-                }
-
-                synchronized (ordenes) {
-                        for (Orden orden : ordenes) {
-                                if (!orden.estaCompleta()) {
-                                        return false;
-                                }
+        synchronized (ordenes) {
+                for (Orden orden : ordenes) {
+                        if (!orden.estaCompleta()) {
+                                return false;
                         }
                 }
-
-                return true;
         }
+        return true;
+    }
 
+    //Mostrar el menú completo al usuario
     public void mostrarMenu() {
-
         for (int i = 0; i < menu.size(); i++) {
-
             System.out.println("\n" + (i + 1) + ". " + menu.get(i));
         }
     }
 
+    //Guardar el ticket de una orden completada en un archivo de texto
     public void guardarTicket(Orden orden) {
-
-        DateTimeFormatter formato =
-                DateTimeFormatter.ofPattern("dd/MM/yyyy"
-                );
-
-        String fecha =
-                LocalDate.now().format(formato);
-
-        orden.setFechaVenta(LocalDate.now());
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fecha = LocalDate.now().format(formato);
+        //orden.setFechaVenta(LocalDate.now());
 
         String ticket =
                 "\n=========== TICKET ===========\n" +
@@ -156,10 +148,6 @@ public class Restaurante {
                         "\n==============================\n";
 
         ManejadorArchivos.guardarTicket(ticket);
-
-        System.out.println(
-                " Orden #" + orden.getId() + " completada."
-        );
+        System.out.println(" Orden #" + orden.getId() + " completada.");
     }
-
 }

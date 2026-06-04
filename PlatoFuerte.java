@@ -2,8 +2,7 @@ public class PlatoFuerte extends Platillo {
 
     private String tipoProteina;
 
-    public PlatoFuerte(String nombre, String descripcion, double precio, int tiempoPreparacion,
-                       String tipoProteina) {
+    public PlatoFuerte(String nombre, String descripcion, double precio, int tiempoPreparacion, String tipoProteina) {
         super(nombre, descripcion, precio, tiempoPreparacion);
         this.tipoProteina = tipoProteina;
     }

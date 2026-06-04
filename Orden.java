@@ -1,11 +1,11 @@
 import java.util.ArrayList;
-import java.time.LocalDate;
+//import java.time.LocalDate;
 
 public class Orden {
     private static int contador = ManejadorArchivos.obtenerContadorHistorico() + 1;
     private int id;
     private ArrayList<Platillo> platillos;
-    private LocalDate fechaVenta;
+    //private LocalDate fechaVenta;
     private boolean guardada;
 
     public Orden(ArrayList<Platillo> platillos) {
@@ -13,6 +13,7 @@ public class Orden {
         this.platillos = platillos;
         guardada = false;
     }
+
     public void agregarPlatillo(Platillo p) {
         platillos.add(p);
     }
@@ -33,9 +34,9 @@ public class Orden {
         this.guardada = guardada;
     }
 
-    public void setFechaVenta(LocalDate fechaVenta) {
+    /*public void setFechaVenta(LocalDate fechaVenta) {
         this.fechaVenta = fechaVenta;
-    }
+    }*/
 
     public boolean estaCompleta() {
         for (Platillo p : platillos) {
