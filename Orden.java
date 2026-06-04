@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.time.LocalDate;
 
-public class Orden {
+public class Orden { // Asgina último ID registrado en la bitácora de ventas para asegurar que cada orden tenga un ID único
+//  incluso después de reiniciar el programa, evitando así conflictos de ID entre órdenes nuevas y las ya registradas en la bitácora
+    
     private static int contador = ManejadorArchivos.obtenerContadorHistorico() + 1;
     private int id;
     private ArrayList<Platillo> platillos;
@@ -10,7 +12,7 @@ public class Orden {
 
     public Orden(ArrayList<Platillo> platillos) {
         id = contador++;
-        this.platillos = platillos;
+        this.platillos = new ArrayList<>(platillos);
         guardada = false;
     }
     public void agregarPlatillo(Platillo p) {

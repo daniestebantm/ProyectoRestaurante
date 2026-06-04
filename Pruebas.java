@@ -10,7 +10,6 @@ public class Pruebas {
     //AGREGAR ORDEN
     public static void agregarOrden(Restaurante restaurante) {
         ArrayList<Platillo> platillosOrden = new ArrayList<>();
-        int nPlatillos = 0;
         while(true) {
             int opPlato=-1;
             String[] opcionesPlato = new String[]{"Entrada", "Plato Fuerte", "Postre","Confirmar orden"};
@@ -118,7 +117,11 @@ public class Pruebas {
                         switch(confirmacion) {
                             case 0:
                                 Orden orden = new Orden(platillosOrden);
-                                restaurante.agregarOrden(orden);
+
+                                synchronized (restaurante.getOrdenes()) {
+                                    restaurante.agregarOrden(orden);
+                                }
+
                                 JOptionPane.showMessageDialog(null,"Orden agregada correctamente.","La Cucharetta",JOptionPane.INFORMATION_MESSAGE);
                                 return;
                             case 1:
@@ -174,7 +177,7 @@ public class Pruebas {
         Cocinero c5 = new Cocinero("Ivan",5,"PlatoFuerte",restaurante);
         Cocinero c6 = new Cocinero("Amelia",6,"Postre",restaurante);
 
-        JOptionPane.showMessageDialog(null,"Bienvenido a La Cucharetta!","La Cucharetta",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null,"¡Bienvenido al restaurante La Cucharetta!","La Cucharetta",JOptionPane.INFORMATION_MESSAGE);
         boolean salir = false;
 
         Thread CEntradas1 = new Thread(c1);
@@ -212,7 +215,9 @@ public class Pruebas {
                         ManejadorArchivos.leerMenu();
                     } catch (IOException e) {
                         JOptionPane.showMessageDialog(null,"Archivo no encontrado.","Error",JOptionPane.ERROR_MESSAGE);
-                        restaurante.mostrarMenu();
+                        synchronized (restaurante.getOrdenes()) {
+                            restaurante.mostrarMenu();
+                        }
                     }
                     break;
                 case 1:
@@ -239,7 +244,7 @@ public class Pruebas {
                         CFuertes2.join();
                         CPostres2.join();
                     } catch (InterruptedException e) {
-                        System.out.println("Error al cerrar los hilos de los cocineros.");
+                        JOptionPane.showMessageDialog(null,"Error al cerrar los hilos de los cocineros.","Error",JOptionPane.ERROR_MESSAGE);
                     }
                     JOptionPane.showMessageDialog(null,"Gracias por visitar La Cucharetta. ¡Hasta luego!","La Cucharetta",JOptionPane.INFORMATION_MESSAGE);
                     break;

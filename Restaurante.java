@@ -94,6 +94,7 @@ public class Restaurante {
         );
     }
 
+    // Getters y métodos para manejar órdenes y cierre del restaurante
     public ArrayList<Platillo> getMenu() {
 
         return menu;
@@ -104,9 +105,9 @@ public class Restaurante {
                 return ordenes;
         }
 
-    public void agregarOrden(Orden o) {
+    public void agregarOrden(Orden orden) {
 
-        ordenes.add(o);
+        ordenes.add(orden);
     }
 
         public void solicitarCierre() {
@@ -143,12 +144,12 @@ public class Restaurante {
 
         DateTimeFormatter formato =
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"
-                );
+                ); // Formato de fecha para el ticket, se puede ajustar según preferencias o requerimientos específicos.
 
         String fecha =
-                LocalDate.now().format(formato);
+                LocalDate.now().format(formato); // Obtener la fecha actual formateada para incluirla en el ticket.
 
-        orden.setFechaVenta(LocalDate.now());
+        orden.setFechaVenta(LocalDate.now()); // Registrar la fecha de venta en la orden para mantener un registro completo de cuándo se completó cada orden.
 
         String ticket =
                 "\n=========== TICKET ===========\n" +
