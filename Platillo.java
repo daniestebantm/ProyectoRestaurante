@@ -13,6 +13,20 @@ public abstract class Platillo {
         this.estaPreparado = false;
     }
     
+    
+
+    @Override
+    public String toString() {
+
+        return nombre +
+                "\nDescripcion: " + descripcion +
+                "\nPrecio: $" + precio +
+                "\nTipo: " + getTipo();
+    }
+
+    public abstract String getMensajeCoccion();
+
+    //GETTERS
     public String getNombre() {
         return nombre;
     }
@@ -29,26 +43,20 @@ public abstract class Platillo {
         return tiempoPreparacion;
     }
 
+    public String getTipo() {
+        return "Platillo";
+    }
+
     public boolean isEstaPreparado() {
         return estaPreparado;
     }
+
+    //SETTERS
 
     public void setEstaPreparado(boolean estaPreparado) {
         this.estaPreparado = estaPreparado;
     }
 
-    public String getTipo() {
-        return "Platillo";
-    }
-
-    @Override
-    public String toString() {
-
-        return nombre +
-                "\nDescripcion: " + descripcion +
-                "\nPrecio: $" + precio +
-                "\nTipo: " + getTipo();
-    }
-
-    public abstract String getMensajeCoccion();
+    // Return a new copy of this platillo (used so orders don't share menu instances)
+    public abstract Platillo copiar();
 }

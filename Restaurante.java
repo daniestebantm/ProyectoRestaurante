@@ -1,38 +1,45 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Restaurante {
-    private ArrayList<Platillo> menu;
-    private ArrayList<Orden> ordenes;
+        private ArrayList<Platillo> menu;
+        private List<Orden> ordenes;
+        private volatile boolean cierreSolicitado;
 
     public Restaurante() {
         menu = new ArrayList<>();
-        ordenes = new ArrayList<>();
+                // Use a synchronized list to allow safe concurrent access from threads
+                ordenes = Collections.synchronizedList(new ArrayList<>());
+                cierreSolicitado = false;
         cargarMenu();
     }
 
     public void cargarMenu() {
         menu.add(
                 new Entrada(
-                        "Carpaccio ",
-                        " Láminas finísimas de carne de ternera o pescado crudo," +
+                        "\nCarpaccio ",
+                        "Láminas finísimas de carne de ternera o pescado crudo," +
                                 " servidas con queso parmesano y aceite de oliva.",
                         250,
-                        5
+                        5, true,"Fría"
                 )
         );
         menu.add(
                 new Entrada(
-                        "Provolone al forno "
-                        , " Queso provolone fundido en horno de piedra, a menudo acompañado de especias y tomates.",
+                        "\nProvolone al forno "
+                        , "Queso provolone fundido en horno de piedra, a menudo acompañado de especias y tomates.",
                         280,
-                        4
+                        4, false, "Caliente"
                 )
         );
 
         menu.add(
                 new PlatoFuerte(
-                        "Lasagna bolognesa ",
-                        " Consiste en capas alternas de láminas de pasta, salsa boloñesa (ragú de carne)," +
+                        "\nLasagna bolognesa ",
+                        "Consiste en capas alternas de láminas de pasta, salsa boloñesa (ragú de carne)," +
                                 " cremosa salsa bechamel y queso gratinado," +
                                 " todo ello horneado hasta alcanzar una textura crujiente por fuera y jugosa por dentro.",
                         350,
@@ -44,8 +51,8 @@ public class Restaurante {
 
         menu.add(
                 new PlatoFuerte(
-                        "Risotto ai Frutti di Mare ",
-                        " Arroz cremoso italiano cocinado en un caldo de mariscos y servido con una generosa selección de pescado" +
+                        "\nRisotto ai Frutti di Mare ",
+                        "Arroz cremoso italiano cocinado en un caldo de mariscos y servido con una generosa selección de pescado" +
                                 ", mejillones y camarones.",
                         330,
                         8,
@@ -56,8 +63,8 @@ public class Restaurante {
 
         menu.add(
                 new PlatoFuerte(
-                        "Pollo a la parmesana ",
-                        " Pechuga empanizada, frita y cubierta con salsa marinara," +
+                        "\nPollo a la parmesana ",
+                        "Pechuga empanizada, frita y cubierta con salsa marinara," +
                                 " queso mozzarella derretido y parmesano.",
                         380,
                         6,
@@ -67,21 +74,21 @@ public class Restaurante {
 
         menu.add(
                 new Postre(
-                        "Tiramisu ",
-                        " Capas de bizcochos humedecidos en café espresso" +
+                        "\nTiramisú ",
+                        "Capas de bizcochos humedecidos en café espresso" +
                                 ", intercalados con una suave crema de queso mascarpone y espolvoreados con cacao amargo",
                         200,
-                        3,
+                        3,true,
                         false
                 )
         );
 
         menu.add(
                 new Postre(
-                        "Gelato ",
-                        "Helado de sabroes de frutas de temporada a base de agua",
+                        "\nGelato ",
+                        "Helado de sabores de frutas de temporada a base de agua",
                         120,
-                        2,
+                        2,true,
                         true
                 )
         );
@@ -92,18 +99,39 @@ public class Restaurante {
         return menu;
     }
 
-    public ArrayList<Orden> getOrdenes() {
+        public List<Orden> getOrdenes() {
 
-        return ordenes;
-    }
+                return ordenes;
+        }
 
     public void agregarOrden(Orden o) {
 
         ordenes.add(o);
     }
 
+        public void solicitarCierre() {
+
+                cierreSolicitado = true;
+        }
+
+        public boolean debeCerrar() {
+
+                if (!cierreSolicitado) {
+                        return false;
+                }
+
+                synchronized (ordenes) {
+                        for (Orden orden : ordenes) {
+                                if (!orden.estaCompleta()) {
+                                        return false;
+                                }
+                        }
+                }
+
+                return true;
+        }
+
     public void mostrarMenu() {
-        System.out.println("\n========== MENU ==========");
 
         for (int i = 0; i < menu.size(); i++) {
 
@@ -113,13 +141,25 @@ public class Restaurante {
 
     public void guardarTicket(Orden orden) {
 
+        DateTimeFormatter formato =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"
+                );
+
+        String fecha =
+                LocalDate.now().format(formato);
+
+        orden.setFechaVenta(LocalDate.now());
+
         String ticket =
                 "\n=========== TICKET ===========\n" +
-                        "Orden #" + orden.getId() + "\n\n" +
-                        orden +
+                        "Fecha:\n" + fecha + "\nOrden #" + orden.getId() + "\n\n" + orden +
                         "\n==============================\n";
 
         ManejadorArchivos.guardarTicket(ticket);
+
+        System.out.println(
+                " Orden #" + orden.getId() + " completada."
+        );
     }
 
 }

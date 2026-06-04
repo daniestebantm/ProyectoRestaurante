@@ -10,15 +10,27 @@ public class Entrada extends Platillo {
         this.tipoEntrada = tipoEntrada;
     }
 
+    //GETTERS
+    
     @Override
     public String getMensajeCoccion() {
         return "Preparando una entrada: " + getNombre()+tipoEntrada + (esParaCompartir ? " ,para compartir." : ".");
     }
 
     @Override
+    public String getTipo() {
+        return "Entrada";
+    }
+
+    @Override
     public String toString() {
         return super.toString()+
-        "Es para compartir: " + (esParaCompartir ? "Si" : "No") + "\nTipo de entrada: " + tipoEntrada;
+        "\nEs para compartir: " + (esParaCompartir ? "Sí" : "No") + "\nTipo de entrada: " + tipoEntrada+"\n";
+    }
+
+    @Override
+    public Platillo copiar() {
+        return new Entrada(getNombre(), getDescripcion(), getPrecio(), getTiempoPreparacion(), esParaCompartir, tipoEntrada);
     }
     
 }
