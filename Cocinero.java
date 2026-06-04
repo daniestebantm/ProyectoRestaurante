@@ -1,7 +1,6 @@
 public class Cocinero extends Empleado {
 
     private String especialidad;
-    private Platillo platilloActual;
     private Restaurante restaurante;
 
     public Cocinero(String nombre, int id,String especialidad, Restaurante restaurante) {
@@ -19,48 +18,59 @@ public class Cocinero extends Empleado {
     public void run() {
 
         while (!restaurante.debeCerrar()) {
-                //Iterar sobre la colección compartida de órdenes mientras esté sincronizada para evitar modificaciones simultáneas cuando se agreguen nuevas órdenes
+                Platillo platilloApartado = null;
+                Orden ordenDelPlatillo = null;
+
                 synchronized (restaurante.getOrdenes()) {
                     for (Orden orden : restaurante.getOrdenes()) {
 
                         for (Platillo p : orden.getPlatillos()) {
+                            // Verificar si el platillo no está preparado y si el cocinero puede prepararlo
 
-                            //Bloquea cada platillo individualmente para asegurarnos de que solo un cocinero lo prepare y evitar competencia entre varios cocineros
                             synchronized (p) {
                                 if (!p.isEstaPreparado() && puedePreparar(p)) {
-                                    try {
-                                        System.out.println("\n" + getNombre() + " está preparando: " + p.getNombre());
-                                        Thread.sleep(p.getTiempoPreparacion() * 1000);
-                                        p.setEstaPreparado(true);
-                                        System.out.println("\n" + getNombre() + " terminó: " + p.getNombre());
-                                    } catch (InterruptedException e) {
-                                        System.out.println(e.getMessage());
-                                    }
-                                }
+
+                                platilloApartado = p;
+                                ordenDelPlatillo = orden;
+
+                                p.setEstaPreparado(true); // Marcar el platillo como apartado para prepararlo.
+                                break; // Salir del ciclo de platillos para preparar este platillo
+                                } // if
+                            } // synchronized (p)
+                        } 
+                        if (platilloApartado != null) {
+                            break; // Salir del ciclo de órdenes para preparar el platillo apartado
+                        }
+                    } // for orden
+                } // synchronized (restaurante.getOrdenes())
+
+                // Si se ha apartado un platillo para preparar
+                if (platilloApartado != null) {
+                    try{
+                        System.out.println("\n"+getNombre() +"( "+ especialidad +" ) comenzó a preparar: " + platilloApartado.getNombre());
+                        Thread.sleep(platilloApartado.getTiempoPreparacion() * 1000); // Simula tiempo de preparación
+                        System.out.println("\n" + getNombre() + " (" + especialidad + ") terminó de preparar: " + platilloApartado.getNombre());
+                        
+                        synchronized (ordenDelPlatillo) {
+                            if (ordenDelPlatillo.estaCompleta() && !ordenDelPlatillo.isGuardada()) {
+                                ordenDelPlatillo.setGuardada(true);
+                                restaurante.guardarTicket(ordenDelPlatillo);
                             }
                         }
 
-                        //Asegurar que la verificación de orden completa y el guardado del ticket se realicen de manera atómica para evitar que un cocinero intente guardar un ticket mientras otro cocinero aún está preparando platillos para esa orden
-                        synchronized (orden) {
-                            if (orden.estaCompleta() && !orden.isGuardada()) {
-                                orden.setGuardada(true);
-                                restaurante.guardarTicket(orden);
-                            }
-                        }
+                    } catch (InterruptedException e) {
+                        System.out.println("El hilo del cocinero " + getNombre() + " fue interrumpido: " + e.getMessage());
+                    }
+                } else {
+                    // Si no se encontró ningún platillo para preparar de su especialidad, se duerme el hilo.
+                    try {
+                        Thread.sleep(300); // Dormir por un segundo
+                    } catch (InterruptedException e) {
+                        System.out.println("El hilo del cocinero " + getNombre() + " fue interrumpido: " + e.getMessage());
                     }
                 }
-            
-
-            try {
-
-                Thread.sleep(300);
-
-            } catch (InterruptedException e) {
-
-                System.out.println(e.getMessage());
             }
+            System.out.println("\n" + getNombre() + " ha terminado su turno.");
         }
 
-        System.out.println(getNombre() + " terminó su turno.");
     }
-}

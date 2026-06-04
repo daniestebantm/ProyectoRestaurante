@@ -73,35 +73,6 @@ Proteína: Mariscos
 =========== TICKET ===========
 Fecha:
 03/06/2026
-Orden #4
-
-===== ORDEN #4 =====
-
-Carpaccio 
-Descripcion: Láminas finísimas de carne de ternera o pescado crudo, servidas con queso parmesano y aceite de oliva.
-Precio: $250.0
-Tipo: Entrada
-Es para compartir: Sí
-Tipo de entrada: Fría
-
-Risotto ai Frutti di Mare 
-Descripcion: Arroz cremoso italiano cocinado en un caldo de mariscos y servido con una generosa selección de pescado, mejillones y camarones.
-Precio: $330.0
-Tipo: PlatoFuerte
-Proteína: Mariscos
-
-Gelato 
-Descripcion: Helado de sabores de frutas de temporada a base de agua
-Precio: $120.0
-Tipo: Postre
-Es dulce: Sí
-Vegano: Sí
-
-==============================
-
-=========== TICKET ===========
-Fecha:
-03/06/2026
 Orden #3
 
 ===== ORDEN #3 =====
@@ -144,6 +115,35 @@ Precio: $200.0
 Tipo: Postre
 Es dulce: Sí
 Vegano: No
+
+Gelato 
+Descripcion: Helado de sabores de frutas de temporada a base de agua
+Precio: $120.0
+Tipo: Postre
+Es dulce: Sí
+Vegano: Sí
+
+==============================
+
+=========== TICKET ===========
+Fecha:
+03/06/2026
+Orden #4
+
+===== ORDEN #4 =====
+
+Carpaccio 
+Descripcion: Láminas finísimas de carne de ternera o pescado crudo, servidas con queso parmesano y aceite de oliva.
+Precio: $250.0
+Tipo: Entrada
+Es para compartir: Sí
+Tipo de entrada: Fría
+
+Risotto ai Frutti di Mare 
+Descripcion: Arroz cremoso italiano cocinado en un caldo de mariscos y servido con una generosa selección de pescado, mejillones y camarones.
+Precio: $330.0
+Tipo: PlatoFuerte
+Proteína: Mariscos
 
 Gelato 
 Descripcion: Helado de sabores de frutas de temporada a base de agua
