@@ -25,4 +25,9 @@ public class PlatoFuerte extends Platillo {
     public String getMensajeCoccion() {
         return "El plato fuerte se está cocinando a fuego medio.";
     }
+
+    @Override
+    public Platillo copiar() {
+        return new PlatoFuerte(getNombre(), getDescripcion(), getPrecio(), getTiempoPreparacion(), tipoProteina);
+    }
 }

@@ -1,4 +1,4 @@
-public abstract class Empleado {
+public abstract class Empleado implements Runnable {
     
     private String nombre;
     private int id;
@@ -8,16 +8,20 @@ public abstract class Empleado {
         this.id = id;
     }
 
+    //GETTERS
+
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public int getId() {
         return id;
+    }
+
+    //SETTERS
+    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setId(int id) {
@@ -29,5 +33,4 @@ public abstract class Empleado {
         return "Empleado : " + nombre + " (ID: " + id + ")";
     }
 
-    
 }
