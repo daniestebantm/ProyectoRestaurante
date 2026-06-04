@@ -57,6 +57,6 @@ public abstract class Platillo {
         this.estaPreparado = estaPreparado;
     }
 
-    // Return a new copy of this platillo (used so orders don't share menu instances)
+    //Regresa una nueva copia de este platillo (usado para que las ordenes no compartan instancias del menú)
     public abstract Platillo copiar();
 }

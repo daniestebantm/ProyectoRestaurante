@@ -11,7 +11,7 @@ public class Restaurante {
 
     public Restaurante() {
         menu = new ArrayList<>();
-                // Use a synchronized list to allow safe concurrent access from threads
+                //Utilizar una lista sincronizada para permitir el acceso concurrente seguro desde hilos
                 ordenes = Collections.synchronizedList(new ArrayList<>());
                 cierreSolicitado = false;
         cargarMenu();
